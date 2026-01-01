@@ -1,0 +1,12 @@
+# K-12 AI Tutoring Agent Requirements
+# Python 3.7+
+
+# Core dependencies (using only standard library for simplicity)
+# No external dependencies required for basic functionality
+
+# Optional enhancements (uncomment if needed):
+# openai>=1.0.0  # For advanced AI-powered responses
+# anthropic>=0.7.0  # Alternative AI provider
+# flask>=2.3.0  # For web interface
+# streamlit>=1.28.0  # For interactive UI
+# pytest>=7.4.0  # For testing
