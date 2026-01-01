@@ -4,7 +4,6 @@ A comprehensive AI-powered tutor for K-12 students covering all major subjects
 and test preparation.
 """
 
-import json
 from typing import Dict, List, Optional
 from dataclasses import dataclass, field
 from enum import Enum
