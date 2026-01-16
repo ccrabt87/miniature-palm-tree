@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Zeros to Heroes - Tryptych Dice Roller</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700&family=Work+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Zeros to Heroes</h1>
+            <div class="subtitle">Tryptych Dice Roller</div>
+            <div id="premium-badge" class="premium-badge hidden">Premium Version</div>
+        </header>
+
+        <div class="main-grid">
+            <div>
+                <div class="card">
+                    <h2 class="card-title">Roll the Dice</h2>
+
+                    <div class="axis-inputs">
+                        <div class="axis-group">
+                            <div class="axis-label">
+                                <span class="axis-name">Stat Axis</span>
+                                <span class="axis-value" id="stat-display">0</span>
+                            </div>
+                            <input type="range" id="stat-input" min="-5" max="5" value="0" step="1">
+                            <div class="axis-range">Skill or Aptitude</div>
+                        </div>
+
+                        <div class="axis-group">
+                            <div class="axis-label">
+                                <span class="axis-name">Context Axis</span>
+                                <span class="axis-value" id="ctx-display">0</span>
+                            </div>
+                            <input type="range" id="ctx-input" min="-3" max="3" value="0" step="1">
+                            <div class="axis-range">Position (-3 to +3)</div>
+                        </div>
+
+                        <div class="axis-group">
+                            <div class="axis-label">
+                                <span class="axis-name">Symbolic Axis</span>
+                                <span class="axis-value" id="sym-display">0</span>
+                            </div>
+                            <input type="range" id="sym-input" min="-2" max="3" value="0" step="1">
+                            <div class="axis-range">Narrative Weight (-2 to +3)</div>
+                        </div>
+                    </div>
+
+                    <button class="roll-button" id="roll-btn">
+                        <span>⚄ Roll Tryptych ⚄</span>
+                    </button>
+
+                    <div class="result-display" id="result-display">
+                        <p style="color: var(--steel-blue); font-style: italic;">Roll to see your fate...</p>
+                    </div>
+                </div>
+
+                <div class="card" style="margin-top: 2rem;">
+                    <h2 class="card-title">Roll History</h2>
+                    <div class="history-list" id="history-list">
+                        <p style="color: var(--steel-blue); text-align: center; padding: 2rem;">No rolls yet. Make your first roll!</p>
+                    </div>
+                    <div class="export-buttons">
+                        <button class="btn-secondary" id="export-json">Export JSON</button>
+                        <button class="btn-secondary" id="export-csv">Export CSV</button>
+                        <button class="btn-secondary premium-feature" id="export-md" title="Premium feature">Export Markdown</button>
+                        <button class="btn-secondary" id="clear-history" style="grid-column: 1 / -1;">Clear History</button>
+                    </div>
+                </div>
+
+                <!-- Premium: Advanced Analytics -->
+                <div class="card premium-section hidden" style="margin-top: 2rem;" id="analytics-section">
+                    <h2 class="card-title">📊 Advanced Analytics</h2>
+                    <div id="analytics-content"></div>
+                </div>
+            </div>
+
+            <div>
+                <div class="card">
+                    <h2 class="card-title">Character Presets</h2>
+                    <div class="preset-grid" id="preset-list"></div>
+
+                    <div class="preset-controls">
+                        <input type="text" id="preset-name" placeholder="Preset name...">
+                        <button class="btn-secondary" id="save-preset">Save Current Modifiers</button>
+                        <button class="btn-secondary premium-feature" id="import-presets" title="Premium feature">Import Presets</button>
+                    </div>
+                </div>
+
+                <div class="card" style="margin-top: 2rem;">
+                    <h2 class="card-title">Probability</h2>
+                    <p style="color: var(--steel-blue); margin-bottom: 1rem; font-size: 0.9rem;">
+                        Based on current modifiers
+                    </p>
+                    <div class="prob-table" id="prob-table"></div>
+                </div>
+
+                <!-- Support/Monetization Card -->
+                <div class="card" style="margin-top: 2rem;" id="support-card">
+                    <h2 class="card-title">Support This Tool</h2>
+                    <div id="monetization-content">
+                        <p style="color: var(--steel-blue); margin-bottom: 1rem; font-size: 0.9rem;">
+                            Enjoying the dice roller? Consider supporting development!
+                        </p>
+                        <button class="roll-button" id="unlock-premium" style="padding: 1rem; font-size: 1rem; margin-bottom: 1rem;">
+                            <span>✨ Unlock Premium Features ✨</span>
+                        </button>
+                        <div style="font-size: 0.85rem; color: var(--steel-blue);">
+                            <strong>Premium includes:</strong>
+                            <ul style="margin: 0.5rem 0; padding-left: 1.5rem;">
+                                <li>Advanced roll analytics & statistics</li>
+                                <li>Export to Markdown format</li>
+                                <li>Import/Export preset collections</li>
+                                <li>Extended roll history (unlimited)</li>
+                                <li>Custom themes (coming soon)</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div id="premium-thanks" class="hidden" style="text-align: center; padding: 1rem;">
+                        <p style="color: var(--hero-gold); font-size: 1.1rem; margin-bottom: 0.5rem;">
+                            ✨ Thank you for your support! ✨
+                        </p>
+                        <p style="color: var(--steel-blue); font-size: 0.9rem;">
+                            All premium features are now unlocked.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://static.itch.io/api.js"></script>
+    <script src="app.js"></script>
+</body>
+</html>
