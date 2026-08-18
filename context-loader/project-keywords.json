@@ -1,0 +1,11 @@
+{
+  "_comment": "Starter mapping for the operator-kit context loader. Recommended project location: .claude/operator-kit-keywords.json. Each entry maps whole-word or phrase triggers to paths relative to the Claude Code project root. priority_file is excerpted; files are listed as a context map.",
+  "_example_entry": {
+    "keywords": ["your keyword", "alternate trigger phrase"],
+    "priority_file": "path/to/priority-doc.md",
+    "files": [
+      "path/to/priority-doc.md",
+      "path/to/related-code.ts"
+    ]
+  }
+}
