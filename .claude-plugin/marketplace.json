@@ -1,0 +1,21 @@
+{
+  "name": "operator-kit",
+  "owner": {
+    "name": "The AIgent"
+  },
+  "description": "Small, focused Claude Code operator tools.",
+  "plugins": [
+    {
+      "name": "operator-kit",
+      "source": "./",
+      "version": "2.1.2",
+      "description": "Five focused, least-privilege subagents and an optional project context loader.",
+      "category": "development",
+      "tags": [
+        "agents",
+        "claude-code",
+        "context"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,51 @@
+# Critical Project Rules
+
+These rules must hold throughout every Claude Code session, including after context compaction.
+
+<!--
+HOW TO USE THIS TEMPLATE
+
+Copy this file to:
+
+  .claude/rules/critical.md
+
+Claude Code loads Markdown files under .claude/rules/ recursively. No CLAUDE.md import is required.
+
+Keep this file short. Use it only for invariants that are dangerous to forget:
+- production and test data boundaries
+- architectural rules that must hold across every caller
+- known footguns
+- model or tool routing rules
+- the minimum verification required before reporting completion
+
+Delete the placeholders below and replace them with project-specific directives. Prefer:
+
+  NEVER do X because Y.
+  ALWAYS do Z before W because Q.
+
+Rules with a reason survive handoffs better than unexplained commands.
+-->
+
+## Project identity
+
+**[PROJECT NAME]** — [one-sentence description].
+
+## Data and storage
+
+1. [Your data rule here.]
+2. [Your data rule here.]
+
+## Code invariants
+
+1. [Your code invariant here.]
+2. [Your code invariant here.]
+
+## Known footguns
+
+1. [Your recurring failure mode here.]
+2. [Your recurring failure mode here.]
+
+## Verification
+
+1. [The smallest check required before reporting a change complete.]
+2. [Any staging or production verification requirement.]
