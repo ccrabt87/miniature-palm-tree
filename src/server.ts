@@ -81,6 +81,68 @@ app.use(loadUser);
 
 app.get("/healthz", (_req, res) => res.json({ ok: true }));
 
+/**
+ * Precached by the service worker and served when a navigation fails with no
+ * signal. It deliberately points at the rate check, which runs entirely on the
+ * phone and is the one thing he needs while a broker is on the line.
+ */
+/**
+ * Digital Asset Links. A Trusted Web Activity only hides the browser URL bar
+ * if this file verifies that the Play Store app and this domain belong to the
+ * same owner. Without it the app still runs, but with a browser bar across the
+ * top that makes it look like a website rather than an app.
+ *
+ * ANDROID_PACKAGE_NAME and ANDROID_CERT_FINGERPRINT come from the signing key
+ * (see android/README.md). With neither set, this 404s, which is correct for a
+ * deployment that has no Android build.
+ */
+app.get("/.well-known/assetlinks.json", (_req, res) => {
+  const pkg = process.env.ANDROID_PACKAGE_NAME;
+  const fingerprint = process.env.ANDROID_CERT_FINGERPRINT;
+
+  if (!pkg || !fingerprint) {
+    res.status(404).json({ error: "No Android app is configured for this domain." });
+    return;
+  }
+
+  res.json([
+    {
+      relation: ["delegate_permission/common.handle_all_urls"],
+      target: {
+        namespace: "android_app",
+        package_name: pkg,
+        // Accepts either one fingerprint or a comma-separated list, since the
+        // upload key and Play's app-signing key are usually both needed.
+        sha256_cert_fingerprints: fingerprint.split(",").map((f) => f.trim()).filter(Boolean),
+      },
+    },
+  ]);
+});
+
+app.get("/offline", (_req, res) => {
+  res.send(
+    layout({
+      title: "Offline",
+      bare: true,
+      body: html`
+        <div class="offline-page">
+          <div class="big">\u{1F6DC}</div>
+          <h1>No signal</h1>
+          <p class="muted">
+            This page needs a connection. Your rate check does not &mdash; it runs
+            on the phone.
+          </p>
+          <a class="btn" href="/calculator">Open rate check</a>
+          <p class="hint" style="margin-top:16px">
+            Anything you save while offline is held on the phone and sent when
+            the bars come back.
+          </p>
+        </div>
+      `,
+    })
+  );
+});
+
 app.use(accountRouter);
 app.use(dashboardRouter);
 app.use(calculatorRouter);

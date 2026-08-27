@@ -202,3 +202,32 @@ tfoot td { font-weight: 700; border-bottom: 0; border-top: 2px solid var(--line)
   body { padding: 0; background: #fff; }
   .sheet { padding: 0; }
 }
+
+/* ---- offline ---- */
+
+/* Sits above the tab bar so it is visible without covering navigation. */
+.offline-badge {
+  position: fixed;
+  left: 12px;
+  right: 12px;
+  bottom: calc(72px + env(safe-area-inset-bottom));
+  z-index: 30;
+  padding: 9px 14px;
+  border-radius: 999px;
+  background: var(--warn-bg);
+  color: var(--warn);
+  border: 1px solid color-mix(in srgb, var(--warn) 25%, transparent);
+  font-size: 14px;
+  font-weight: 650;
+  text-align: center;
+  box-shadow: 0 4px 14px rgb(0 0 0 / 0.14);
+}
+body.bare .offline-badge { bottom: calc(14px + env(safe-area-inset-bottom)); }
+
+.offline-page { text-align: center; padding: 40px 20px; }
+.offline-page .big { font-size: 46px; margin-bottom: 10px; }
+
+/* Standalone (installed) mode: pad for the status bar the browser used to own. */
+@media (display-mode: standalone) {
+  .topbar { padding-top: calc(12px + env(safe-area-inset-top)); }
+}

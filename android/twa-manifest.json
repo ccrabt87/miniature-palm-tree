@@ -1,0 +1,36 @@
+{
+  "packageId": "com.prairiefreight.haulmath",
+  "host": "haulmath.example.com",
+  "name": "HaulMath",
+  "launcherName": "HaulMath",
+  "display": "standalone",
+  "themeColor": "#14607a",
+  "themeColorDark": "#101317",
+  "navigationColor": "#14607a",
+  "navigationColorDark": "#101317",
+  "navigationDividerColor": "#14607a",
+  "navigationDividerColorDark": "#101317",
+  "backgroundColor": "#f4f5f7",
+  "enableNotifications": false,
+  "startUrl": "/",
+  "iconUrl": "https://haulmath.example.com/icons/icon-512.png",
+  "maskableIconUrl": "https://haulmath.example.com/icons/icon-maskable-512.png",
+  "splashScreenFadeOutDuration": 300,
+  "signingKey": {
+    "path": "./android/haulmath-release.keystore",
+    "alias": "haulmath"
+  },
+  "appVersionName": "1.0.0",
+  "appVersionCode": 1,
+  "shortcuts": [
+    { "name": "Rate check", "shortName": "Rate check", "url": "/calculator", "chosenIconUrl": "https://haulmath.example.com/icons/icon-192.png" },
+    { "name": "Add expense", "shortName": "Expense", "url": "/expenses", "chosenIconUrl": "https://haulmath.example.com/icons/icon-192.png" }
+  ],
+  "generatorApp": "bubblewrap-cli",
+  "webManifestUrl": "https://haulmath.example.com/manifest.webmanifest",
+  "fallbackType": "customtabs",
+  "enableSiteSettingsShortcut": true,
+  "isChromeOSOnly": false,
+  "isMetaQuest": false,
+  "orientation": "portrait"
+}

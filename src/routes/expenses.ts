@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { db, type ExpenseRow } from "../db.js";
+import { db, findByIdempotencyKey, type ExpenseRow } from "../db.js";
 import { parseMoneyToCents, parseNumber, formatCents } from "../money.js";
 import { html, raw } from "../views/html.js";
 import { layout } from "../views/layout.js";
@@ -47,7 +47,7 @@ expensesRouter.get("/expenses", requireAccess, (req, res) => {
 
         <div class="card">
           <h2>Add an expense</h2>
-          <form method="post" action="/expenses">
+          <form method="post" action="/expenses" data-offline-ok>
             <div class="grid2">
               <div class="field">
                 <label for="date">Date</label>
@@ -124,9 +124,17 @@ expensesRouter.get("/expenses", requireAccess, (req, res) => {
 
 expensesRouter.post("/expenses", requireAccess, (req, res) => {
   const b = (k: string) => String(req.body[k] ?? "").trim();
+
+  // Replayed from the offline outbox? It is already recorded.
+  const key = b("idempotency_key");
+  if (findByIdempotencyKey("expenses", req.user!.id, key) !== undefined) {
+    res.redirect("/expenses");
+    return;
+  }
+
   db.prepare(
-    `INSERT INTO expenses (user_id, date, category, description, amount_cents, state, gallons)
-     VALUES (?,?,?,?,?,?,?)`
+    `INSERT INTO expenses (user_id, date, category, description, amount_cents, state, gallons, idempotency_key)
+     VALUES (?,?,?,?,?,?,?,?)`
   ).run(
     req.user!.id,
     b("date") || todayISO(),
@@ -134,7 +142,8 @@ expensesRouter.post("/expenses", requireAccess, (req, res) => {
     b("description"),
     parseMoneyToCents(req.body.amount),
     b("state").toUpperCase(),
-    parseNumber(req.body.gallons)
+    parseNumber(req.body.gallons),
+    key || null
   );
   res.redirect("/expenses");
 });

@@ -120,6 +120,46 @@ CREATE INDEX IF NOT EXISTS idx_invoices_user ON invoices(user_id, issued_date DE
 CREATE UNIQUE INDEX IF NOT EXISTS idx_invoices_load ON invoices(load_id);
 `);
 
+/**
+ * Adds a column if it is not already there. CREATE TABLE IF NOT EXISTS does
+ * nothing for a table that already exists, so schema changes shipped after the
+ * first release need this to reach existing installs.
+ */
+function addColumn(table: string, column: string, definition: string): void {
+  const cols = db.prepare(`PRAGMA table_info(${table})`).all() as { name: string }[];
+  if (!cols.some((c) => c.name === column)) {
+    db.exec(`ALTER TABLE ${table} ADD COLUMN ${column} ${definition}`);
+  }
+}
+
+// Writes queued on the phone while offline carry a client-generated key. The
+// unique index is what actually stops a replayed submission from creating the
+// same load or expense twice.
+addColumn("loads", "idempotency_key", "TEXT");
+addColumn("expenses", "idempotency_key", "TEXT");
+db.exec(`
+  CREATE UNIQUE INDEX IF NOT EXISTS idx_loads_idem
+    ON loads(user_id, idempotency_key) WHERE idempotency_key IS NOT NULL;
+  CREATE UNIQUE INDEX IF NOT EXISTS idx_expenses_idem
+    ON expenses(user_id, idempotency_key) WHERE idempotency_key IS NOT NULL;
+`);
+
+/**
+ * Returns the id of a row this user already created with this key, if any.
+ * An empty key means the client did not send one, which is never a duplicate.
+ */
+export function findByIdempotencyKey(
+  table: "loads" | "expenses",
+  userId: number,
+  key: string
+): number | undefined {
+  if (!key) return undefined;
+  const row = db
+    .prepare(`SELECT id FROM ${table} WHERE user_id = ? AND idempotency_key = ?`)
+    .get(userId, key) as { id: number } | undefined;
+  return row?.id;
+}
+
 export interface UserRow {
   id: number;
   email: string;

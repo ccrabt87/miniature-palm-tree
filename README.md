@@ -9,6 +9,8 @@ costs the truck racks up whether it moves or not. Then it keeps the load,
 invoices the broker, and rolls the quarter up for IFTA.
 
 Built for a phone in a cab: big targets, numeric keypads, dark mode, no jargon.
+It installs to an Android home screen and **the rate check works with no
+signal** — see [Installing it on a phone](#installing-it-on-a-phone).
 
 ---
 
@@ -42,6 +44,31 @@ return.
 
 ---
 
+## Installing it on a phone
+
+It's a PWA. On Android: open the site in Chrome → menu → **Install app**. It
+gets a truck icon, opens fullscreen with no browser bar, and behaves like any
+other app. No store, no account, and updates land as soon as you deploy.
+
+**It keeps working when the bars drop**, which for a driver is the point:
+
+- The profit maths is compiled from the same `src/calc.ts` the server uses and
+  shipped to the browser, so the rate check runs **on the phone**. No round
+  trip — it works at zero bars, and there is only one implementation of the
+  arithmetic to keep correct.
+- Loads and expenses saved offline queue on the phone and sync when signal
+  returns. Each carries a client-generated idempotency key that the server
+  dedupes on, so a flaky connection can't book the same load twice.
+- Pages already visited stay readable offline. Invoices and billing are
+  deliberately never cached — a stale invoice is worse than an honest error.
+- Logging out purges the cached pages and the stored cost basis.
+
+For the Play Store route (Bubblewrap / TWA, Digital Asset Links, and the
+fingerprint mistake that leaves a URL bar on everyone's phone but yours), see
+**[android/README.md](android/README.md)**.
+
+---
+
 ## Running it
 
 ```bash
@@ -71,7 +98,13 @@ that lose money.
 npm test          # unit tests for the profit math and the IFTA rollup
 npm run typecheck
 npm run build && npm start
+npm run icons     # regenerate the launcher icons from geometry (no image tools needed)
 ```
+
+`npm run build` compiles twice: the server (`tsconfig.json`) and the browser
+copy of the maths (`tsconfig.client.json` → `public/lib/`). If you change
+`src/calc.ts` or `src/money.ts`, rebuild the client or the phone keeps using
+the old arithmetic.
 
 ---
 
@@ -116,15 +149,22 @@ card is how you lose the customer, not how you collect.
 
 ```
 src/
-  calc.ts          the profit math — pure, unit-tested
+  calc.ts          the profit math — pure, unit-tested, ALSO compiled to the browser
   ifta.ts          quarterly per-state rollup — pure, unit-tested
-  money.ts         cents in, formatted strings out
-  db.ts            SQLite schema and row types
+  money.ts         cents in, formatted strings out — also compiled to the browser
+  db.ts            SQLite schema, row types, and column migrations
   auth.ts          scrypt passwords, cookie sessions
   billing.ts       Stripe checkout, portal, webhooks, access gate
   routes/          one file per section of the app
   views/           escaped-by-default HTML templates
-public/            stylesheet and the live-calc script
+public/
+  app.js           client-side rate check + offline outbox
+  sw.js            service worker: offline shell, cache policy
+  lib/             generated — browser build of calc.ts and money.ts
+  icons/           generated — see scripts/make-icons.mjs
+  manifest.webmanifest
+android/           Play Store packaging notes and TWA config
+scripts/           icon generator
 test/              tests for calc.ts and ifta.ts
 ```
 
@@ -140,6 +180,8 @@ Notes on the parts that matter:
   history.
 - **No AI, no external APIs.** It's arithmetic and records. Nothing to pay for
   per request, nothing to break when a vendor changes a model.
+- **Schema changes need `addColumn`, not just `CREATE TABLE IF NOT EXISTS`** —
+  the latter does nothing to a table that already exists on a live install.
 
 ---
 
@@ -147,10 +189,19 @@ Notes on the parts that matter:
 
 The obvious next things, roughly in order of what a driver would pay for:
 
-1. **Fuel-stop pricing** — cheapest diesel along the lane. Needs a paid data feed.
+1. **Automatic state-line mileage for IFTA** — the highest-value thing left.
+   It turns the quarterly return from an evening of paperwork into something
+   that just happens. Needs background GPS, so it needs a native shell
+   (Capacitor — see `android/README.md`).
 2. **Rate-per-mile history by lane** — he already has the data; it just needs a
    query and a chart.
-3. **Maintenance and compliance reminders** — DOT inspection, UCR, IRP renewal,
+3. **Fuel-stop pricing** — cheapest diesel along the lane. Note that under IFTA
+   the pump price is misleading: tax is apportioned by miles driven, so any
+   ranking has to compare **pre-tax** prices. Real per-station prices need a
+   paid feed (OPIS-class); regional averages are available free from the EIA.
+   **Verify both of those claims before building on them** — they were not
+   confirmed by research.
+4. **Maintenance and compliance reminders** — DOT inspection, UCR, IRP renewal,
    Form 2290. All date math, no new integrations.
-4. **Emailing invoices to brokers** — currently print/PDF only.
-5. **Photo attachments** — BOLs and fuel receipts on the load record.
+5. **Emailing invoices to brokers** — currently print/PDF only.
+6. **Photo attachments** — BOLs and fuel receipts on the load record.

@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { db, getSettings, truckFromSettings } from "../db.js";
+import { db, getSettings, truckFromSettings, findByIdempotencyKey } from "../db.js";
 import { calcLoad, targetRateCents, type LoadInput } from "../calc.js";
 import { parseMoneyToCents, parseNumber, formatCents } from "../money.js";
 import { html, raw } from "../views/html.js";
@@ -24,7 +24,7 @@ export function loadInputFromForm(body: Record<string, unknown>): LoadInput {
 function calcForm(body: Record<string, unknown>) {
   const v = (k: string, d = "") => String(body[k] ?? d);
   return html`
-    <form method="post" action="/calculator/save" data-live-calc>
+    <form method="post" action="/calculator/save" data-live-calc data-offline-ok>
       <div class="card">
         <h2>The load</h2>
         <div class="field">
@@ -137,6 +137,9 @@ calculatorRouter.get("/calculator", requireAccess, (req, res) => {
           <a href="/settings">Change</a>
         </p>
         ${calcForm(req.query as Record<string, unknown>)}
+        <script type="application/json" id="truck-settings">
+          ${raw(JSON.stringify(truckFromSettings(s)))}
+        </script>
       `,
     })
   );
@@ -169,6 +172,16 @@ calculatorRouter.post("/calculator/save", requireAccess, (req, res) => {
   // again — default it to today rather than lose the load.
   const pickup = b("pickup_date") || todayISO();
 
+  // A submission queued on the phone can be replayed after a flaky connection.
+  // If this key has already been stored, show the load that was created rather
+  // than making a second copy of it.
+  const key = b("idempotency_key");
+  const existing = findByIdempotencyKey("loads", userId, key);
+  if (existing !== undefined) {
+    res.redirect(`/loads/${existing}`);
+    return;
+  }
+
   const info = db
     .prepare(
       `INSERT INTO loads (
@@ -176,8 +189,8 @@ calculatorRouter.post("/calculator/save", requireAccess, (req, res) => {
          dest_city, dest_state, pickup_date, delivery_date, rate_cents,
          loaded_miles, deadhead_miles, tolls_cents, other_costs_cents,
          transit_days, mpg, fuel_price_cents, fixed_cost_per_mile_cents,
-         driver_pay_per_mile_cents, status
-       ) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?, 'booked')`
+         driver_pay_per_mile_cents, status, idempotency_key
+       ) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?, 'booked', ?)`
     )
     .run(
       userId,
@@ -198,7 +211,8 @@ calculatorRouter.post("/calculator/save", requireAccess, (req, res) => {
       s.mpg,
       s.fuel_price_cents,
       s.fixed_cost_per_mile_cents,
-      s.driver_pay_per_mile_cents
+      s.driver_pay_per_mile_cents,
+      key || null
     );
 
   res.redirect(`/loads/${info.lastInsertRowid}`);

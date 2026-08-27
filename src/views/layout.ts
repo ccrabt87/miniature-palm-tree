@@ -72,14 +72,21 @@ export function layout(opts: LayoutOptions): string {
 <meta name="color-scheme" content="light dark">
 <title>${title} &middot; ${APP_NAME}</title>
 <link rel="stylesheet" href="/app.css">
-<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>%F0%9F%9A%9B</text></svg>">
+<link rel="manifest" href="/manifest.webmanifest">
+<meta name="theme-color" content="#14607a" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#101317" media="(prefers-color-scheme: dark)">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="application-name" content="${APP_NAME}">
+<link rel="icon" href="/icons/icon-192.png" sizes="192x192" type="image/png">
+<link rel="icon" href="/icons/icon-512.png" sizes="512x512" type="image/png">
+<link rel="apple-touch-icon" href="/icons/apple-touch-icon.png">
 </head>
 <body class="${bare ? "bare" : ""}">
 ${header}
 ${banner}
 <main>${body}</main>
 ${nav}
-<script src="/app.js" defer></script>
+<script type="module" src="/app.js"></script>
 </body>
 </html>`;
 }

@@ -96,7 +96,9 @@ accountRouter.post("/login", (req, res) => {
 
 accountRouter.post("/logout", (req, res) => {
   endSession(req, res);
-  res.redirect("/login");
+  // The service worker caches pages for offline use; those belong to the
+  // account that just left, so the client is told to drop them.
+  res.redirect("/login?cleared=1");
 });
 
 accountRouter.get("/billing", requireUser, async (req, res) => {
