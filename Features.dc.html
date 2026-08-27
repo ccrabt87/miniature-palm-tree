@@ -1,0 +1,152 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700;900&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&display=swap">
+  <style>
+    body { margin: 0; font-family: 'Cormorant Garamond', 'Georgia', serif; }
+    a { color: #c9a84c; } a:hover { color: #e8d48b; }
+  </style>
+</helmet>
+
+<div style="width: 1600px; height: 1200px; background: #0d0a1a; position: relative; overflow: hidden;">
+
+  <!-- Background texture -->
+  <div style="position: absolute; inset: 0; background: radial-gradient(ellipse at 50% 30%, rgba(83, 52, 131, 0.2) 0%, rgba(13, 10, 26, 0) 70%);"></div>
+  <div style="position: absolute; inset: 0; background: radial-gradient(ellipse at 80% 80%, rgba(201, 168, 76, 0.05) 0%, transparent 50%);"></div>
+
+  <!-- Star field -->
+  <svg style="position: absolute; inset: 0; width: 100%; height: 100%; opacity: 0.3;" viewBox="0 0 1600 1200">
+    <circle cx="100" cy="60" r="1" fill="#e8d48b"/>
+    <circle cx="400" cy="100" r="0.7" fill="#fff"/>
+    <circle cx="700" cy="50" r="1.2" fill="#e8d48b"/>
+    <circle cx="1200" cy="80" r="0.8" fill="#fff"/>
+    <circle cx="1500" cy="120" r="1" fill="#e8d48b"/>
+    <circle cx="200" cy="1100" r="0.9" fill="#fff"/>
+    <circle cx="1400" cy="1050" r="1.1" fill="#e8d48b"/>
+  </svg>
+
+  <!-- Decorative border -->
+  <div style="position: absolute; inset: 40px; border: 1px solid rgba(201, 168, 76, 0.2); pointer-events: none;"></div>
+
+  <!-- Corner ornaments -->
+  <svg style="position: absolute; top: 28px; left: 28px; width: 50px; height: 50px;" viewBox="0 0 50 50">
+    <path d="M5 25 L5 5 L25 5" fill="none" stroke="#c9a84c" stroke-width="1" opacity="0.5"/>
+  </svg>
+  <svg style="position: absolute; top: 28px; right: 28px; width: 50px; height: 50px;" viewBox="0 0 50 50">
+    <path d="M25 5 L45 5 L45 25" fill="none" stroke="#c9a84c" stroke-width="1" opacity="0.5"/>
+  </svg>
+  <svg style="position: absolute; bottom: 28px; left: 28px; width: 50px; height: 50px;" viewBox="0 0 50 50">
+    <path d="M5 25 L5 45 L25 45" fill="none" stroke="#c9a84c" stroke-width="1" opacity="0.5"/>
+  </svg>
+  <svg style="position: absolute; bottom: 28px; right: 28px; width: 50px; height: 50px;" viewBox="0 0 50 50">
+    <path d="M25 45 L45 45 L45 25" fill="none" stroke="#c9a84c" stroke-width="1" opacity="0.5"/>
+  </svg>
+
+  <!-- Content -->
+  <div style="position: relative; z-index: 1; padding: 80px 100px; height: 100%; display: flex; flex-direction: column;">
+
+    <!-- Header -->
+    <div style="text-align: center; margin-bottom: 48px;">
+      <h2 style="font-family: 'Cinzel', 'Georgia', serif; font-size: 42px; font-weight: 700; color: #faf5e6; margin: 0 0 8px 0; letter-spacing: 4px;">What's Inside</h2>
+      <!-- Divider -->
+      <svg style="width: 200px; height: 16px;" viewBox="0 0 200 16">
+        <line x1="0" y1="8" x2="80" y2="8" stroke="#c9a84c" stroke-width="0.5" opacity="0.5"/>
+        <line x1="120" y1="8" x2="200" y2="8" stroke="#c9a84c" stroke-width="0.5" opacity="0.5"/>
+        <rect x="93" y="1" width="7" height="7" transform="rotate(45 96.5 4.5)" fill="none" stroke="#c9a84c" stroke-width="0.8" opacity="0.6"/>
+      </svg>
+    </div>
+
+    <!-- Features grid -->
+    <div style="display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 36px 48px; flex: 1;">
+
+      <!-- Feature 1 -->
+      <div style="display: flex; flex-direction: column; align-items: center; text-align: center; padding: 32px 24px; border: 1px solid rgba(201, 168, 76, 0.15); border-radius: 4px; background: rgba(201, 168, 76, 0.03);">
+        <svg style="width: 48px; height: 48px; margin-bottom: 20px;" viewBox="0 0 48 48">
+          <rect x="8" y="4" width="32" height="40" rx="3" fill="none" stroke="#c9a84c" stroke-width="1.2" opacity="0.7"/>
+          <rect x="12" y="8" width="24" height="32" rx="1" fill="none" stroke="#c9a84c" stroke-width="0.6" opacity="0.4"/>
+          <path d="M24 16 L27 24 L24 32 L21 24 Z" fill="#c9a84c" opacity="0.3"/>
+        </svg>
+        <h3 style="font-family: 'Cinzel', 'Georgia', serif; font-size: 18px; font-weight: 600; color: #c9a84c; margin: 0 0 10px 0; letter-spacing: 2px;">22 Cards</h3>
+        <p style="font-size: 17px; color: #b8a9d4; margin: 0; line-height: 1.6;">Beautifully illustrated digital tarot cards representing modern dating archetypes</p>
+      </div>
+
+      <!-- Feature 2 -->
+      <div style="display: flex; flex-direction: column; align-items: center; text-align: center; padding: 32px 24px; border: 1px solid rgba(201, 168, 76, 0.15); border-radius: 4px; background: rgba(201, 168, 76, 0.03);">
+        <svg style="width: 48px; height: 48px; margin-bottom: 20px;" viewBox="0 0 48 48">
+          <circle cx="24" cy="24" r="18" fill="none" stroke="#c9a84c" stroke-width="1.2" opacity="0.7"/>
+          <circle cx="24" cy="24" r="10" fill="none" stroke="#c9a84c" stroke-width="0.6" opacity="0.4"/>
+          <circle cx="24" cy="24" r="3" fill="#c9a84c" opacity="0.4"/>
+          <path d="M24 6 L24 10 M24 38 L24 42 M6 24 L10 24 M38 24 L42 24" stroke="#c9a84c" stroke-width="0.8" opacity="0.5"/>
+        </svg>
+        <h3 style="font-family: 'Cinzel', 'Georgia', serif; font-size: 18px; font-weight: 600; color: #c9a84c; margin: 0 0 10px 0; letter-spacing: 2px;">Rituals</h3>
+        <p style="font-size: 17px; color: #b8a9d4; margin: 0; line-height: 1.6;">Each card includes a personal ritual, journal prompt, and curated Spotify playlist</p>
+      </div>
+
+      <!-- Feature 3 -->
+      <div style="display: flex; flex-direction: column; align-items: center; text-align: center; padding: 32px 24px; border: 1px solid rgba(201, 168, 76, 0.15); border-radius: 4px; background: rgba(201, 168, 76, 0.03);">
+        <svg style="width: 48px; height: 48px; margin-bottom: 20px;" viewBox="0 0 48 48">
+          <path d="M24 6 L30 18 L44 20 L34 30 L36 44 L24 38 L12 44 L14 30 L4 20 L18 18 Z" fill="none" stroke="#c9a84c" stroke-width="1.2" opacity="0.7"/>
+          <path d="M24 14 L28 22 L36 23 L30 29 L31 37 L24 33 L17 37 L18 29 L12 23 L20 22 Z" fill="#c9a84c" opacity="0.15"/>
+        </svg>
+        <h3 style="font-family: 'Cinzel', 'Georgia', serif; font-size: 18px; font-weight: 600; color: #c9a84c; margin: 0 0 10px 0; letter-spacing: 2px;">Spread Guide</h3>
+        <p style="font-size: 17px; color: #b8a9d4; margin: 0; line-height: 1.6;">Read your own attachment patterns with our custom spread layouts</p>
+      </div>
+
+      <!-- Feature 4 -->
+      <div style="display: flex; flex-direction: column; align-items: center; text-align: center; padding: 32px 24px; border: 1px solid rgba(201, 168, 76, 0.15); border-radius: 4px; background: rgba(201, 168, 76, 0.03);">
+        <svg style="width: 48px; height: 48px; margin-bottom: 20px;" viewBox="0 0 48 48">
+          <circle cx="24" cy="18" r="12" fill="none" stroke="#c9a84c" stroke-width="1.2" opacity="0.7"/>
+          <path d="M24 6 A12 12 0 0 1 24 30 A8 12 0 0 0 24 6" fill="#c9a84c" opacity="0.25"/>
+          <path d="M14 34 L24 28 L34 34 L34 44 L14 44 Z" fill="none" stroke="#c9a84c" stroke-width="0.8" opacity="0.4"/>
+        </svg>
+        <h3 style="font-family: 'Cinzel', 'Georgia', serif; font-size: 18px; font-weight: 600; color: #c9a84c; margin: 0 0 10px 0; letter-spacing: 2px;">Shadow Work</h3>
+        <p style="font-size: 17px; color: #b8a9d4; margin: 0; line-height: 1.6;">Discover what each archetype reveals about your own patterns</p>
+      </div>
+
+      <!-- Feature 5 -->
+      <div style="display: flex; flex-direction: column; align-items: center; text-align: center; padding: 32px 24px; border: 1px solid rgba(201, 168, 76, 0.15); border-radius: 4px; background: rgba(201, 168, 76, 0.03);">
+        <svg style="width: 48px; height: 48px; margin-bottom: 20px;" viewBox="0 0 48 48">
+          <rect x="6" y="8" width="36" height="32" rx="2" fill="none" stroke="#c9a84c" stroke-width="1.2" opacity="0.7"/>
+          <line x1="6" y1="16" x2="42" y2="16" stroke="#c9a84c" stroke-width="0.6" opacity="0.4"/>
+          <line x1="12" y1="22" x2="36" y2="22" stroke="#c9a84c" stroke-width="0.4" opacity="0.3"/>
+          <line x1="12" y1="28" x2="30" y2="28" stroke="#c9a84c" stroke-width="0.4" opacity="0.3"/>
+          <line x1="12" y1="34" x2="33" y2="34" stroke="#c9a84c" stroke-width="0.4" opacity="0.3"/>
+        </svg>
+        <h3 style="font-family: 'Cinzel', 'Georgia', serif; font-size: 18px; font-weight: 600; color: #c9a84c; margin: 0 0 10px 0; letter-spacing: 2px;">48-Page Guide</h3>
+        <p style="font-size: 17px; color: #b8a9d4; margin: 0; line-height: 1.6;">Complete guidebook with archetype meanings and reflection exercises</p>
+      </div>
+
+      <!-- Feature 6 -->
+      <div style="display: flex; flex-direction: column; align-items: center; text-align: center; padding: 32px 24px; border: 1px solid rgba(201, 168, 76, 0.15); border-radius: 4px; background: rgba(201, 168, 76, 0.03);">
+        <svg style="width: 48px; height: 48px; margin-bottom: 20px;" viewBox="0 0 48 48">
+          <rect x="10" y="6" width="28" height="36" rx="2" fill="none" stroke="#c9a84c" stroke-width="1.2" opacity="0.7"/>
+          <rect x="14" y="10" width="20" height="28" rx="1" fill="none" stroke="#c9a84c" stroke-width="0.5" opacity="0.3"/>
+          <path d="M24 18 L24 30 M18 24 L30 24" stroke="#c9a84c" stroke-width="0.8" opacity="0.5"/>
+          <path d="M6 40 L10 36 M38 36 L42 40" stroke="#c9a84c" stroke-width="0.8" opacity="0.4"/>
+        </svg>
+        <h3 style="font-family: 'Cinzel', 'Georgia', serif; font-size: 18px; font-weight: 600; color: #c9a84c; margin: 0 0 10px 0; letter-spacing: 2px;">Printable</h3>
+        <p style="font-size: 17px; color: #b8a9d4; margin: 0; line-height: 1.6;">Includes printable card backs for at-home printing on cardstock</p>
+      </div>
+
+    </div>
+
+    <!-- Bottom section -->
+    <div style="text-align: center; margin-top: 40px; padding-top: 32px; border-top: 1px solid rgba(201, 168, 76, 0.15);">
+      <p style="font-size: 20px; font-style: italic; color: #a89cc8; margin: 0; line-height: 1.6; max-width: 800px; margin: 0 auto;">
+        "Anyone who's ever said <span style="color: #c9a84c;">'I know their type, I just don't know mine.'</span><br>
+        Perfect for the self-aware chaotic dater."
+      </p>
+    </div>
+
+  </div>
+</div>
+
+</x-dc>
+</body>
+</html>
