@@ -1,0 +1,177 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700;900&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&display=swap">
+  <style>
+    body { margin: 0; font-family: 'Cormorant Garamond', 'Georgia', serif; }
+    a { color: #c9a84c; } a:hover { color: #e8d48b; }
+  </style>
+</helmet>
+
+<div style="width: 1600px; height: 1200px; background: #0d0a1a; position: relative; overflow: hidden;">
+
+  <!-- Background texture - radial glow -->
+  <div style="position: absolute; inset: 0; background: radial-gradient(ellipse at 50% 40%, rgba(83, 52, 131, 0.35) 0%, rgba(13, 10, 26, 0) 70%);"></div>
+  <div style="position: absolute; inset: 0; background: radial-gradient(ellipse at 20% 80%, rgba(201, 168, 76, 0.08) 0%, transparent 50%);"></div>
+  <div style="position: absolute; inset: 0; background: radial-gradient(ellipse at 80% 20%, rgba(201, 168, 76, 0.06) 0%, transparent 40%);"></div>
+
+  <!-- Star field -->
+  <svg style="position: absolute; inset: 0; width: 100%; height: 100%; opacity: 0.4;" viewBox="0 0 1600 1200">
+    <circle cx="120" cy="80" r="1.2" fill="#e8d48b"/>
+    <circle cx="340" cy="150" r="0.8" fill="#fff"/>
+    <circle cx="520" cy="60" r="1" fill="#e8d48b"/>
+    <circle cx="780" cy="120" r="0.6" fill="#fff"/>
+    <circle cx="1050" cy="90" r="1.4" fill="#e8d48b"/>
+    <circle cx="1280" cy="140" r="0.8" fill="#fff"/>
+    <circle cx="1450" cy="70" r="1" fill="#e8d48b"/>
+    <circle cx="200" cy="300" r="0.7" fill="#fff"/>
+    <circle cx="1400" cy="280" r="1" fill="#e8d48b"/>
+    <circle cx="80" cy="500" r="0.9" fill="#fff"/>
+    <circle cx="1520" cy="450" r="1.2" fill="#e8d48b"/>
+    <circle cx="150" cy="700" r="0.6" fill="#fff"/>
+    <circle cx="1480" cy="650" r="0.8" fill="#e8d48b"/>
+    <circle cx="300" cy="900" r="1" fill="#fff"/>
+    <circle cx="1350" cy="950" r="0.7" fill="#e8d48b"/>
+    <circle cx="600" cy="1050" r="0.9" fill="#fff"/>
+    <circle cx="1000" cy="1100" r="1.1" fill="#e8d48b"/>
+    <circle cx="450" cy="200" r="0.5" fill="#c9a84c"/>
+    <circle cx="1150" cy="350" r="0.6" fill="#c9a84c"/>
+    <circle cx="900" cy="1000" r="0.8" fill="#c9a84c"/>
+  </svg>
+
+  <!-- Decorative border -->
+  <div style="position: absolute; inset: 40px; border: 1px solid rgba(201, 168, 76, 0.25); pointer-events: none;"></div>
+  <div style="position: absolute; inset: 48px; border: 1px solid rgba(201, 168, 76, 0.1); pointer-events: none;"></div>
+
+  <!-- Corner ornaments -->
+  <svg style="position: absolute; top: 28px; left: 28px; width: 60px; height: 60px;" viewBox="0 0 60 60">
+    <path d="M5 30 L5 5 L30 5" fill="none" stroke="#c9a84c" stroke-width="1.5" opacity="0.6"/>
+    <circle cx="5" cy="5" r="3" fill="#c9a84c" opacity="0.4"/>
+  </svg>
+  <svg style="position: absolute; top: 28px; right: 28px; width: 60px; height: 60px;" viewBox="0 0 60 60">
+    <path d="M30 5 L55 5 L55 30" fill="none" stroke="#c9a84c" stroke-width="1.5" opacity="0.6"/>
+    <circle cx="55" cy="5" r="3" fill="#c9a84c" opacity="0.4"/>
+  </svg>
+  <svg style="position: absolute; bottom: 28px; left: 28px; width: 60px; height: 60px;" viewBox="0 0 60 60">
+    <path d="M5 30 L5 55 L30 55" fill="none" stroke="#c9a84c" stroke-width="1.5" opacity="0.6"/>
+    <circle cx="5" cy="55" r="3" fill="#c9a84c" opacity="0.4"/>
+  </svg>
+  <svg style="position: absolute; bottom: 28px; right: 28px; width: 60px; height: 60px;" viewBox="0 0 60 60">
+    <path d="M30 55 L55 55 L55 30" fill="none" stroke="#c9a84c" stroke-width="1.5" opacity="0.6"/>
+    <circle cx="55" cy="55" r="3" fill="#c9a84c" opacity="0.4"/>
+  </svg>
+
+  <!-- Main content -->
+  <div style="position: relative; z-index: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100%; padding: 80px 120px; text-align: center;">
+
+    <!-- Moon phases row -->
+    <svg style="width: 260px; height: 28px; margin-bottom: 32px;" viewBox="0 0 260 28">
+      <!-- New moon -->
+      <circle cx="30" cy="14" r="8" fill="none" stroke="#c9a84c" stroke-width="0.8" opacity="0.5"/>
+      <!-- Waxing crescent -->
+      <circle cx="70" cy="14" r="8" fill="none" stroke="#c9a84c" stroke-width="0.8" opacity="0.6"/>
+      <path d="M70 6 A8 8 0 0 1 70 22 A5 8 0 0 0 70 6" fill="#c9a84c" opacity="0.6"/>
+      <!-- First quarter -->
+      <circle cx="110" cy="14" r="8" fill="none" stroke="#c9a84c" stroke-width="0.8" opacity="0.7"/>
+      <path d="M110 6 A8 8 0 0 1 110 22 L110 6" fill="#c9a84c" opacity="0.7"/>
+      <!-- Full moon -->
+      <circle cx="150" cy="14" r="9" fill="#c9a84c" opacity="0.9"/>
+      <!-- Last quarter -->
+      <circle cx="190" cy="14" r="8" fill="none" stroke="#c9a84c" stroke-width="0.8" opacity="0.7"/>
+      <path d="M190 6 A8 8 0 0 0 190 22 L190 6" fill="#c9a84c" opacity="0.7"/>
+      <!-- Waning crescent -->
+      <circle cx="230" cy="14" r="8" fill="none" stroke="#c9a84c" stroke-width="0.8" opacity="0.5"/>
+      <path d="M230 6 A8 8 0 0 0 230 22 A5 8 0 0 1 230 6" fill="#c9a84c" opacity="0.5"/>
+    </svg>
+
+    <!-- Category pill -->
+    <div style="font-family: 'Cinzel', 'Georgia', serif; font-size: 13px; font-weight: 600; letter-spacing: 6px; color: #c9a84c; text-transform: uppercase; margin-bottom: 28px; opacity: 0.8;">Dating</div>
+
+    <!-- Title -->
+    <h1 style="font-family: 'Cinzel', 'Georgia', serif; font-size: 86px; font-weight: 900; color: #faf5e6; line-height: 1.05; margin: 0 0 12px 0; letter-spacing: 3px; text-shadow: 0 0 60px rgba(201, 168, 76, 0.2);">Attachment<br>Style Tarot</h1>
+
+    <!-- Subtitle -->
+    <p style="font-family: 'Cormorant Garamond', 'Georgia', serif; font-size: 28px; font-weight: 400; font-style: italic; color: #b8a9d4; margin: 0 0 36px 0; letter-spacing: 1px;">The Anxious-Avoidant Oracle Deck</p>
+
+    <!-- Decorative divider -->
+    <svg style="width: 320px; height: 20px; margin-bottom: 36px;" viewBox="0 0 320 20">
+      <line x1="0" y1="10" x2="130" y2="10" stroke="#c9a84c" stroke-width="0.5" opacity="0.5"/>
+      <line x1="190" y1="10" x2="320" y2="10" stroke="#c9a84c" stroke-width="0.5" opacity="0.5"/>
+      <rect x="148" y="2" width="10" height="10" rx="0" transform="rotate(45 153 7)" fill="none" stroke="#c9a84c" stroke-width="1" opacity="0.7"/>
+      <circle cx="138" cy="10" r="1.5" fill="#c9a84c" opacity="0.5"/>
+      <circle cx="168" cy="10" r="1.5" fill="#c9a84c" opacity="0.5"/>
+    </svg>
+
+    <!-- Tagline -->
+    <p style="font-family: 'Cormorant Garamond', 'Georgia', serif; font-size: 24px; font-style: italic; color: #a89cc8; margin: 0 0 44px 0; max-width: 700px; line-height: 1.5;">"22 cards. Zero predictions.<br>100% pattern recognition."</p>
+
+    <!-- Card fan illustration -->
+    <div style="position: relative; width: 400px; height: 180px; margin-bottom: 44px;">
+      <!-- Card 1 - left -->
+      <div style="position: absolute; left: 60px; top: 20px; width: 100px; height: 150px; background: linear-gradient(135deg, #1a1440, #2d1f5e); border: 1px solid rgba(201, 168, 76, 0.4); border-radius: 6px; transform: rotate(-15deg); box-shadow: 0 4px 20px rgba(0,0,0,0.4);">
+        <div style="position: absolute; inset: 6px; border: 1px solid rgba(201, 168, 76, 0.2); border-radius: 3px; display: flex; align-items: center; justify-content: center;">
+          <svg width="40" height="40" viewBox="0 0 40 40">
+            <circle cx="20" cy="20" r="14" fill="none" stroke="#c9a84c" stroke-width="0.8" opacity="0.6"/>
+            <circle cx="20" cy="20" r="8" fill="none" stroke="#c9a84c" stroke-width="0.5" opacity="0.4"/>
+            <circle cx="20" cy="20" r="2" fill="#c9a84c" opacity="0.5"/>
+          </svg>
+        </div>
+      </div>
+      <!-- Card 2 - center left -->
+      <div style="position: absolute; left: 120px; top: 5px; width: 100px; height: 150px; background: linear-gradient(135deg, #1a1440, #2d1f5e); border: 1px solid rgba(201, 168, 76, 0.5); border-radius: 6px; transform: rotate(-5deg); box-shadow: 0 4px 20px rgba(0,0,0,0.4);">
+        <div style="position: absolute; inset: 6px; border: 1px solid rgba(201, 168, 76, 0.2); border-radius: 3px; display: flex; align-items: center; justify-content: center;">
+          <svg width="40" height="50" viewBox="0 0 40 50">
+            <path d="M20 5 L25 18 L38 18 L28 27 L32 40 L20 32 L8 40 L12 27 L2 18 L15 18 Z" fill="none" stroke="#c9a84c" stroke-width="0.8" opacity="0.6"/>
+          </svg>
+        </div>
+      </div>
+      <!-- Card 3 - center -->
+      <div style="position: absolute; left: 150px; top: 0; width: 100px; height: 150px; background: linear-gradient(135deg, #2d1f5e, #3d2a7a); border: 1px solid rgba(201, 168, 76, 0.6); border-radius: 6px; box-shadow: 0 6px 30px rgba(83, 52, 131, 0.5), 0 0 20px rgba(201, 168, 76, 0.1);">
+        <div style="position: absolute; inset: 6px; border: 1px solid rgba(201, 168, 76, 0.3); border-radius: 3px; display: flex; align-items: center; justify-content: center;">
+          <svg width="50" height="60" viewBox="0 0 50 60">
+            <path d="M25 8 C25 8 10 20 10 32 C10 42 17 48 25 48 C33 48 40 42 40 32 C40 20 25 8 25 8Z" fill="none" stroke="#c9a84c" stroke-width="1" opacity="0.7"/>
+            <path d="M25 18 C25 18 18 25 18 32 C18 37 21 40 25 40 C29 40 32 37 32 32 C32 25 25 18 25 18Z" fill="#c9a84c" opacity="0.2"/>
+          </svg>
+        </div>
+      </div>
+      <!-- Card 4 - center right -->
+      <div style="position: absolute; left: 180px; top: 5px; width: 100px; height: 150px; background: linear-gradient(135deg, #1a1440, #2d1f5e); border: 1px solid rgba(201, 168, 76, 0.5); border-radius: 6px; transform: rotate(5deg); box-shadow: 0 4px 20px rgba(0,0,0,0.4);">
+        <div style="position: absolute; inset: 6px; border: 1px solid rgba(201, 168, 76, 0.2); border-radius: 3px; display: flex; align-items: center; justify-content: center;">
+          <svg width="40" height="40" viewBox="0 0 40 40">
+            <circle cx="20" cy="14" r="8" fill="none" stroke="#c9a84c" stroke-width="0.8" opacity="0.5"/>
+            <path d="M8 36 L20 20 L32 36" fill="none" stroke="#c9a84c" stroke-width="0.8" opacity="0.5"/>
+          </svg>
+        </div>
+      </div>
+      <!-- Card 5 - right -->
+      <div style="position: absolute; left: 240px; top: 20px; width: 100px; height: 150px; background: linear-gradient(135deg, #1a1440, #2d1f5e); border: 1px solid rgba(201, 168, 76, 0.4); border-radius: 6px; transform: rotate(15deg); box-shadow: 0 4px 20px rgba(0,0,0,0.4);">
+        <div style="position: absolute; inset: 6px; border: 1px solid rgba(201, 168, 76, 0.2); border-radius: 3px; display: flex; align-items: center; justify-content: center;">
+          <svg width="40" height="40" viewBox="0 0 40 40">
+            <path d="M20 6 L20 34 M6 20 L34 20" stroke="#c9a84c" stroke-width="0.8" opacity="0.5"/>
+            <circle cx="20" cy="20" r="12" fill="none" stroke="#c9a84c" stroke-width="0.8" opacity="0.4"/>
+          </svg>
+        </div>
+      </div>
+    </div>
+
+    <!-- Bottom info -->
+    <div style="display: flex; align-items: center; gap: 40px;">
+      <span style="font-family: 'Cinzel', 'Georgia', serif; font-size: 14px; color: rgba(201, 168, 76, 0.6); letter-spacing: 3px; text-transform: uppercase;">22 Cards</span>
+      <svg width="6" height="6" viewBox="0 0 6 6"><rect x="0" y="0" width="6" height="6" transform="rotate(45 3 3)" fill="#c9a84c" opacity="0.4"/></svg>
+      <span style="font-family: 'Cinzel', 'Georgia', serif; font-size: 14px; color: rgba(201, 168, 76, 0.6); letter-spacing: 3px; text-transform: uppercase;">48 Page Guide</span>
+      <svg width="6" height="6" viewBox="0 0 6 6"><rect x="0" y="0" width="6" height="6" transform="rotate(45 3 3)" fill="#c9a84c" opacity="0.4"/></svg>
+      <span style="font-family: 'Cinzel', 'Georgia', serif; font-size: 14px; color: rgba(201, 168, 76, 0.6); letter-spacing: 3px; text-transform: uppercase;">Digital Download</span>
+    </div>
+
+  </div>
+</div>
+
+</x-dc>
+</body>
+</html>
