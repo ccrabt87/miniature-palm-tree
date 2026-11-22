@@ -1,0 +1,303 @@
+/* ------------------------------------------------------------------
+   Medical Spanish for Nurses — print stylesheet
+   Target: US Letter (8.5 x 11 in), rendered by headless Chromium.
+   ------------------------------------------------------------------ */
+
+@page { size: 8.5in 11in; margin: 0.75in 0.7in 0.85in 0.7in; }
+
+:root {
+  --ink:        #1a1a2e;
+  --ink-soft:   #3d3d55;
+  --muted:      #6b6b8a;
+  --rule:       #c9c9d6;
+  --rule-soft:  #e4e4ee;
+  --accent:     #2d6a4f;   /* clinical green — headings, Spanish column */
+  --accent-pale:#eef5f1;
+  --alert:      #9b2226;   /* emergency / red-flag material */
+  --alert-pale: #fbeeee;
+  --band:       #f4f4f8;
+}
+
+* { box-sizing: border-box; }
+html { font-size: 11pt; }
+
+body {
+  margin: 0;
+  font-family: "Bitstream Charter", "Liberation Serif", Georgia, serif;
+  color: var(--ink);
+  line-height: 1.42;
+  -webkit-print-color-adjust: exact;
+  print-color-adjust: exact;
+}
+
+/* ---------- structure ---------------------------------------------------- */
+
+section.chapter { break-before: page; }
+section.chapter:first-of-type { break-before: auto; }
+.page-break { break-after: page; }
+.keep { break-inside: avoid; }
+
+/* ---------- headings ----------------------------------------------------- */
+
+h1, h2, h3, h4 {
+  font-family: "Liberation Sans", Helvetica, Arial, sans-serif;
+  color: var(--ink);
+  break-after: avoid;
+  margin: 0;
+}
+
+h1.chapter-title {
+  font-size: 23pt; font-weight: 800; line-height: 1.1;
+  letter-spacing: -0.4pt; margin: 0 0 4pt 0;
+}
+
+.chapter-num {
+  font-family: "Liberation Sans", Helvetica, Arial, sans-serif;
+  font-size: 8.5pt; font-weight: 700; letter-spacing: 2.4pt;
+  text-transform: uppercase; color: var(--accent); margin: 0 0 10pt 0;
+}
+
+.chapter-lede {
+  font-size: 10.5pt; color: var(--ink-soft);
+  border-left: 2.5pt solid var(--accent);
+  padding: 6pt 0 6pt 11pt; margin: 0 0 18pt 0;
+  background: var(--accent-pale); break-inside: avoid;
+}
+
+h2 {
+  font-size: 13pt; font-weight: 700; margin: 20pt 0 7pt 0;
+  padding-bottom: 3pt; border-bottom: 1.2pt solid var(--ink);
+}
+
+h3 {
+  font-size: 10.5pt; font-weight: 700; text-transform: uppercase;
+  letter-spacing: 0.9pt; color: var(--accent); margin: 14pt 0 5pt 0;
+}
+
+h4 { font-size: 10.5pt; font-weight: 700; margin: 11pt 0 3pt 0; }
+
+p { margin: 0 0 8pt 0; }
+p.tight { margin-bottom: 4pt; }
+ul, ol { margin: 0 0 9pt 0; padding-left: 16pt; }
+li { margin-bottom: 3pt; }
+
+/* ---------- phrase tables ------------------------------------------------ */
+
+table.phrases {
+  width: 100%; border-collapse: collapse; font-size: 9.5pt; margin: 0 0 12pt 0;
+}
+table.phrases thead th {
+  font-family: "Liberation Sans", Helvetica, Arial, sans-serif;
+  font-size: 7.5pt; font-weight: 700; text-transform: uppercase;
+  letter-spacing: 1pt; color: var(--muted); text-align: left;
+  padding: 0 6pt 4pt 0; border-bottom: 1.2pt solid var(--ink);
+}
+table.phrases tbody td {
+  vertical-align: top; padding: 4.5pt 6pt 4.5pt 0;
+  border-bottom: 0.6pt solid var(--rule-soft);
+}
+table.phrases tbody tr:nth-child(even) td { background: #fafafc; }
+table.phrases tbody tr { break-inside: avoid; }
+table.phrases td.es { color: var(--accent); font-weight: 600; }
+table.phrases td.ph {
+  font-family: "Liberation Sans", Helvetica, Arial, sans-serif;
+  font-size: 8pt; color: var(--muted); letter-spacing: 0.2pt;
+}
+table.phrases col.c-en { width: 34%; }
+table.phrases col.c-es { width: 38%; }
+table.phrases col.c-ph { width: 28%; }
+table.phrases.two col.c-en { width: 46%; }
+table.phrases.two col.c-es { width: 54%; }
+
+/* ---------- reference / callout boxes ------------------------------------ */
+
+.box {
+  border: 0.8pt solid var(--rule); border-left: 3pt solid var(--accent);
+  background: #fbfbfd; padding: 9pt 11pt; margin: 0 0 12pt 0;
+  font-size: 9.5pt; break-inside: avoid;
+}
+.box.alert { border-left-color: var(--alert); background: var(--alert-pale); }
+.box.plain { border-left-color: var(--rule); background: var(--band); }
+.box .box-title {
+  font-family: "Liberation Sans", Helvetica, Arial, sans-serif;
+  font-size: 8pt; font-weight: 700; letter-spacing: 1.4pt;
+  text-transform: uppercase; color: var(--accent); margin-bottom: 5pt;
+}
+.box.alert .box-title { color: var(--alert); }
+.box.plain .box-title { color: var(--muted); }
+.box p:last-child, .box ul:last-child, .box ol:last-child { margin-bottom: 0; }
+
+/* ---------- flashcards --------------------------------------------------- */
+
+/* Table-based so pagination is predictable across page breaks. */
+table.cards {
+  width: 100%; border-collapse: separate; border-spacing: 7pt;
+  margin: 0 -7pt 8pt -7pt;
+}
+table.cards td {
+  width: 50%; vertical-align: top;
+  border: 1pt dashed var(--rule); border-radius: 4pt;
+  padding: 7pt 9pt; background: #fff; break-inside: avoid;
+}
+.card-tag {
+  font-family: "Liberation Sans", Helvetica, Arial, sans-serif;
+  font-size: 7pt; font-weight: 700; letter-spacing: 1.3pt;
+  text-transform: uppercase; color: var(--alert); margin-bottom: 4pt;
+}
+.card-tag.calm { color: var(--accent); }
+.card-line + .card-line {
+  margin-top: 5pt; padding-top: 5pt; border-top: 0.5pt dotted var(--rule);
+}
+.card-en { font-size: 8.5pt; color: var(--ink-soft); margin-bottom: 1pt; }
+.card-es { font-size: 10pt; font-weight: 700; color: var(--accent); line-height: 1.22; }
+.card-ph {
+  font-family: "Liberation Sans", Helvetica, Arial, sans-serif;
+  font-size: 7pt; color: var(--muted); margin-top: 1pt;
+}
+
+/* ---------- fillable fields --------------------------------------------- */
+
+/* Anchors with href="fillfield:*" become real AcroForm text fields in
+   build.py after Chromium renders. The rule below is what print shows. */
+a.fill {
+  display: inline-block; border-bottom: 0.8pt solid var(--muted);
+  height: 13pt; vertical-align: bottom; text-decoration: none;
+  color: transparent; min-width: 0.8in;
+}
+a.fill.w-sm { width: 1.1in; }
+a.fill.w-md { width: 2.0in; }
+a.fill.w-lg { width: 3.2in; }
+a.fill.w-full { width: 100%; }
+a.fill.box-field {
+  border: 0.8pt solid var(--rule); border-radius: 2pt;
+  background: #fcfcfe; height: 15pt;
+}
+
+.writeline { margin: 0 0 9pt 0; font-size: 9.5pt; }
+.writeline .lbl {
+  font-family: "Liberation Sans", Helvetica, Arial, sans-serif;
+  font-size: 8pt; font-weight: 700; letter-spacing: 0.6pt;
+  text-transform: uppercase; color: var(--muted);
+  display: block; margin-bottom: 2pt;
+}
+
+/* ---------- quizzes ------------------------------------------------------ */
+
+ol.quiz { padding-left: 18pt; font-size: 9.5pt; }
+ol.quiz > li { margin-bottom: 9pt; break-inside: avoid; }
+ol.quiz .opts { margin-top: 3pt; padding-left: 10pt; list-style: upper-alpha; }
+ol.quiz .opts li { margin-bottom: 1.5pt; }
+
+.answer-key { font-size: 9pt; column-count: 2; column-gap: 22pt; }
+.answer-key p { margin-bottom: 4pt; break-inside: avoid; }
+.answer-key .qn { font-weight: 700; color: var(--accent); }
+
+/* ---------- front matter ------------------------------------------------- */
+
+.title-page {
+  height: 9.2in; display: flex; flex-direction: column;
+  justify-content: center; text-align: left;
+}
+.title-page .kicker {
+  font-family: "Liberation Sans", Helvetica, Arial, sans-serif;
+  font-size: 9pt; font-weight: 700; letter-spacing: 3pt;
+  text-transform: uppercase; color: var(--accent); margin-bottom: 14pt;
+}
+.title-page h1 {
+  font-size: 40pt; font-weight: 800; line-height: 1.05;
+  letter-spacing: -1pt; margin-bottom: 10pt;
+}
+.title-page .sub { font-size: 16pt; font-style: italic; color: var(--ink-soft); margin-bottom: 22pt; }
+.title-page .quote {
+  font-size: 12pt; font-style: italic; color: var(--muted);
+  border-left: 3pt solid var(--ink); padding: 8pt 0 8pt 14pt; max-width: 4.6in;
+}
+
+table.toc { width: 100%; border-collapse: collapse; font-size: 10pt; }
+table.toc td { padding: 4.5pt 0; border-bottom: 0.6pt dotted var(--rule); vertical-align: bottom; }
+table.toc td.n {
+  width: 0.5in; font-family: "Liberation Sans", Helvetica, Arial, sans-serif;
+  font-size: 8.5pt; font-weight: 700; color: var(--accent);
+}
+table.toc td.pg {
+  width: 0.5in; text-align: right;
+  font-family: "Liberation Sans", Helvetica, Arial, sans-serif;
+  font-size: 9pt; color: var(--muted);
+}
+table.toc tr.sub td.t { padding-left: 14pt; color: var(--ink-soft); font-size: 9pt; }
+table.toc tr.sub td { border-bottom: none; padding-top: 1pt; padding-bottom: 1pt; }
+
+/* ---------- pocket card -------------------------------------------------- */
+
+.pocket {
+  border: 1.2pt solid var(--ink); border-radius: 5pt; padding: 10pt 12pt;
+  font-size: 7.6pt; line-height: 1.3; break-inside: avoid; margin-bottom: 10pt;
+}
+.pocket h4 {
+  font-size: 8pt; letter-spacing: 1pt; text-transform: uppercase;
+  color: var(--accent); margin: 7pt 0 3pt 0;
+}
+.pocket h4:first-child { margin-top: 0; }
+.pocket .pk-title {
+  font-family: "Liberation Sans", Helvetica, Arial, sans-serif;
+  font-size: 10pt; font-weight: 800; letter-spacing: 0.4pt;
+  border-bottom: 1pt solid var(--ink); padding-bottom: 4pt; margin-bottom: 6pt;
+}
+.pocket .cols { column-count: 2; column-gap: 12pt; }
+.pocket .pk { break-inside: avoid; margin-bottom: 2.5pt; }
+.pocket .pk .e { color: var(--ink-soft); }
+.pocket .pk .s { color: var(--accent); font-weight: 700; }
+
+.cut-note {
+  font-family: "Liberation Sans", Helvetica, Arial, sans-serif;
+  font-size: 7.5pt; color: var(--muted); text-align: center; margin-bottom: 8pt;
+}
+
+/* ---------- dialogues ---------------------------------------------------- */
+
+.dlg { margin: 0 0 14pt 0; }
+.dlg .turn { margin-bottom: 7pt; break-inside: avoid; padding-left: 46pt; position: relative; }
+.dlg .who {
+  position: absolute; left: 0; top: 1pt; width: 42pt;
+  font-family: "Liberation Sans", Helvetica, Arial, sans-serif;
+  font-size: 7pt; font-weight: 700; letter-spacing: 0.8pt;
+  text-transform: uppercase; color: var(--muted);
+}
+.dlg .who.n { color: var(--accent); }
+.dlg .sp { font-size: 10pt; font-weight: 600; color: var(--accent); line-height: 1.3; }
+.dlg .turn.other .sp { color: var(--ink-soft); font-weight: 400; }
+.dlg .gl { font-size: 8.5pt; color: var(--ink-soft); font-style: italic; }
+.dlg .stage {
+  font-size: 8.5pt; color: var(--muted); font-style: italic;
+  padding-left: 46pt; margin: 0 0 7pt 0;
+}
+.scene {
+  font-size: 9.5pt; color: var(--ink-soft);
+  border-left: 2.5pt solid var(--rule); padding: 4pt 0 4pt 10pt; margin: 0 0 10pt 0;
+}
+
+/* ---------- glossary ----------------------------------------------------- */
+
+.gloss { column-count: 3; column-gap: 16pt; font-size: 7.8pt; line-height: 1.32; margin-bottom: 12pt; }
+.gloss .g { break-inside: avoid; margin-bottom: 1.5pt; }
+.gloss .g .a { color: var(--ink); }
+.gloss .g .b { color: var(--accent); font-weight: 700; }
+.gloss .letter {
+  font-family: "Liberation Sans", Helvetica, Arial, sans-serif;
+  font-size: 8pt; font-weight: 700; color: var(--muted);
+  letter-spacing: 1.5pt; margin: 5pt 0 2pt 0;
+  border-bottom: 0.6pt solid var(--rule-soft); break-after: avoid;
+}
+.gloss2 { column-count: 2; }
+
+/* ---------- misc --------------------------------------------------------- */
+
+.small { font-size: 8.5pt; color: var(--muted); }
+.es { color: var(--accent); font-weight: 600; }
+.ph {
+  font-family: "Liberation Sans", Helvetica, Arial, sans-serif;
+  font-size: 8pt; color: var(--muted);
+}
+.two-col { column-count: 2; column-gap: 20pt; }
+.two-col p, .two-col .keep { break-inside: avoid; }
+a.tocmark { display: inline-block; width: 1px; height: 1px; overflow: hidden; }
