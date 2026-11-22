@@ -126,8 +126,9 @@ point `DATABASE_PATH` inside it.
 
 ## Billing
 
-Stripe is optional. With no keys set, the app runs and billing is disabled —
-useful while it's just for one truck.
+Stripe is optional. **With no `STRIPE_SECRET_KEY` and `STRIPE_PRICE_ID` set,
+billing is off: every account is free, no trial ever expires, and no trial
+banner is shown.** That is the right setup while it's just for one truck.
 
 To charge for it:
 
@@ -138,6 +139,11 @@ To charge for it:
    `invoice.payment_failed`.
 3. Fill in `STRIPE_SECRET_KEY`, `STRIPE_PRICE_ID`, `STRIPE_WEBHOOK_SECRET`,
    and `PRICE_LABEL`.
+
+**Before you switch billing on, add the original driver to `COMP_EMAILS`.**
+Turning Stripe on starts the 14-day clock for everyone, and any account
+created more than 14 days earlier is locked out at once — including his.
+Emails in `COMP_EMAILS` (comma-separated, case doesn't matter) stay free.
 
 New accounts get a 14-day trial. A failed payment flips the account to
 `past_due` but **keeps it open** — locking a driver out mid-week over a declined

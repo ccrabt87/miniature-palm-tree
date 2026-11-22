@@ -1,49 +1,29 @@
 import Stripe from "stripe";
 import type { Request, Response, NextFunction } from "express";
 import { db, type UserRow } from "./db.js";
+import { accessFor, parseCompEmails, type Access, type BillingConfig } from "./access.js";
 
 const key = process.env.STRIPE_SECRET_KEY ?? "";
 
 /**
- * Stripe is optional so the app runs locally without keys. With no key set,
- * billing endpoints report that it is unconfigured and the access gate falls
- * back to the trial window.
+ * Stripe is optional. With no key and price set, billing is OFF: the app is
+ * free for every account and no trial ever expires, since there would be
+ * nothing to subscribe to.
  */
 export const stripe = key ? new Stripe(key) : null;
 
 export const PRICE_ID = process.env.STRIPE_PRICE_ID ?? "";
 
-export interface Access {
-  allowed: boolean;
-  reason: "subscribed" | "trial" | "trial_expired" | "canceled" | "past_due";
-  trialDaysLeft: number;
-}
+export const BILLING: BillingConfig = {
+  enabled: Boolean(stripe && PRICE_ID),
+  // Accounts that stay free even once billing is switched on.
+  compEmails: parseCompEmails(process.env.COMP_EMAILS),
+};
 
-/** Statuses Stripe reports for a subscription that should still open the app. */
-const LIVE_STATUSES = new Set(["active", "trialing", "past_due"]);
+export type { Access };
 
 export function checkAccess(user: UserRow): Access {
-  const msLeft = new Date(user.trial_ends_at).getTime() - Date.now();
-  const trialDaysLeft = Math.max(0, Math.ceil(msLeft / 864e5));
-
-  if (LIVE_STATUSES.has(user.subscription_status)) {
-    // past_due keeps the doors open — Stripe is still retrying the card, and
-    // locking a driver out mid-week over a declined charge loses the customer.
-    if (user.subscription_status === "past_due") {
-      return { allowed: true, reason: "past_due", trialDaysLeft };
-    }
-    if (user.subscription_status === "active") {
-      return { allowed: true, reason: "subscribed", trialDaysLeft };
-    }
-  }
-
-  if (trialDaysLeft > 0) return { allowed: true, reason: "trial", trialDaysLeft };
-
-  return {
-    allowed: false,
-    reason: user.subscription_status === "canceled" ? "canceled" : "trial_expired",
-    trialDaysLeft: 0,
-  };
+  return accessFor(user, BILLING);
 }
 
 /** Blocks the working parts of the app once trial and subscription are both gone. */

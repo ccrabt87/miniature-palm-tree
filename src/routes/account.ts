@@ -106,6 +106,23 @@ accountRouter.get("/billing", requireUser, async (req, res) => {
   const access = checkAccess(user);
   const checkout = String(req.query.checkout ?? "");
 
+  // Free accounts have nothing to buy, and a driver who taps Billing should
+  // not be shown a price or a note about server configuration.
+  if (access.reason === "free" || access.reason === "comp") {
+    res.send(
+      layout({
+        title: "Billing",
+        user,
+        body: html`
+          <h1>Billing</h1>
+          <div class="ok">Your account is free. There is nothing to pay.</div>
+          <a class="btn sub" href="/settings">Back to settings</a>
+        `,
+      })
+    );
+    return;
+  }
+
   const status = (() => {
     switch (access.reason) {
       case "subscribed":

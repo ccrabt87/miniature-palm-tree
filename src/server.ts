@@ -7,7 +7,7 @@ import { existsSync } from "node:fs";
 import type Stripe from "stripe";
 
 import { loadUser, purgeExpiredSessions } from "./auth.js";
-import { stripe, handleWebhookEvent } from "./billing.js";
+import { stripe, handleWebhookEvent, BILLING } from "./billing.js";
 import { dashboardRouter } from "./routes/dashboard.js";
 import { calculatorRouter } from "./routes/calculator.js";
 import { loadsRouter } from "./routes/loads.js";
@@ -189,5 +189,8 @@ setInterval(purgeExpiredSessions, 6 * 3600 * 1000).unref();
 const port = Number(process.env.PORT ?? 3000);
 app.listen(port, () => {
   console.log(`HaulMath listening on http://localhost:${port}`);
-  if (!stripe) console.log("Stripe not configured — billing is in trial-only mode.");
+  if (!BILLING.enabled) console.log("Billing is off — every account is free.");
+  else if (BILLING.compEmails.size) {
+    console.log(`Billing is on; ${BILLING.compEmails.size} comp account(s) stay free.`);
+  }
 });
