@@ -110,8 +110,31 @@ the old arithmetic.
 
 ## Deploying
 
-It's one Node process plus a SQLite file. Anywhere that runs a container and
-gives you a persistent disk works — Railway, Render, Fly.io, or a $5 VPS.
+It's one Node process plus a SQLite file. It has to be on the internet over
+**HTTPS** before a phone can install it — Chrome won't install a PWA or run
+its offline mode from a plain-http address.
+
+### Render (what `render.yaml` sets up)
+
+1. Sign in at render.com with GitHub.
+2. **New → Blueprint**, pick this repo and the branch the code is on.
+3. Apply. It builds, starts, and gives you an `https://….onrender.com` URL.
+
+That's the whole deploy; billing stays off, so it's free to use. Every push to
+that branch redeploys automatically.
+
+**Don't switch it to the free instance type.** Render's free instances sleep
+after 15 minutes idle and **wipe their files when they do** — the database is a
+file, so his loads would quietly disappear. `render.yaml` asks for the lowest
+paid plan because that's the cheapest one that can hold a persistent disk.
+Check render.com/pricing for the current cost.
+
+Node is pinned to 22 in `.node-version`; without it Render builds on whatever
+Node is newest, which this app hasn't been tested on.
+
+### Anywhere else
+
+Any host that runs a container and gives you a persistent volume works:
 
 ```bash
 docker build -t haulmath .
