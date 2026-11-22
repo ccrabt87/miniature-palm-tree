@@ -89,7 +89,7 @@ TOC: list[tuple[str, str, str, str]] = [
     ("sub",  "",     "The shift &middot; meals &middot; hygiene &middot; mobility &middot; lines &middot; tests &middot; nights", ""),
     ("main", "B",    "Appendix B &mdash; Eight Bedside Dialogues",    "apxb"),
     ("main", "C",    "Appendix C &mdash; Two-Way Glossary",           "apxc"),
-    ("sub",  "",     "272 clinical terms &middot; 70 things patients say to you", ""),
+    ("sub",  "",     "270 clinical terms &middot; 70 things patients say to you", ""),
     ("main", "D",    "Appendix D &mdash; Eight-Week Plan &amp; Progress Log", "apxd"),
 ]
 
