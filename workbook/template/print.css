@@ -1,0 +1,192 @@
+/* ------------------------------------------------------------------ *
+ *  Medical Spanish for Nurses — print stylesheet (US Letter)
+ *  Page margins and the footer are set by build.py (Chromium page.pdf).
+ * ------------------------------------------------------------------ */
+
+:root {
+  --ink: #1d1d2b;
+  --muted: #5d5d75;
+  --rule: #c9c9d8;
+  --accent: #0f6e78;      /* teal: Spanish text */
+  --accent-soft: #e3f2f3;
+  --warm: #b4532a;        /* warnings */
+  --warm-soft: #fbeee7;
+  --gold-soft: #fbf5e0;
+  --violet-soft: #eeecf8;
+}
+
+* { box-sizing: border-box; }
+
+html { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+
+body {
+  margin: 0;
+  font-family: "Charter", "Bitstream Charter", "DejaVu Serif", Georgia, serif;
+  font-size: 10.5pt;
+  line-height: 1.42;
+  color: var(--ink);
+}
+
+h1, h2, h3, h4, .chapter-num, table th, .sans {
+  font-family: "Inter", "DejaVu Sans", Helvetica, Arial, sans-serif;
+}
+
+h2 {
+  font-size: 14pt; margin: 18pt 0 6pt; color: var(--ink);
+  border-bottom: 1.5pt solid var(--accent); padding-bottom: 2pt;
+  break-after: avoid;
+}
+h3 { font-size: 11.5pt; margin: 12pt 0 4pt; color: var(--accent); break-after: avoid; }
+h4 { font-size: 10pt; margin: 8pt 0 3pt; text-transform: uppercase; letter-spacing: .04em; color: var(--muted); break-after: avoid; }
+p  { margin: 0 0 6pt; }
+ul, ol { margin: 0 0 6pt; padding-left: 16pt; }
+li { margin-bottom: 2pt; }
+
+.es  { color: var(--accent); font-weight: 600; }
+.say { font-family: "Inter", "DejaVu Sans", sans-serif; font-size: 8.5pt; color: var(--muted); letter-spacing: .01em; }
+.small { font-size: 9pt; }
+.muted { color: var(--muted); }
+
+/* ---------- chapters ---------- */
+
+.chapter { break-before: page; }
+.chapter-num {
+  font-size: 9pt; font-weight: 700; letter-spacing: .18em; text-transform: uppercase;
+  color: var(--accent); margin: 0 0 2pt;
+}
+.chapter-title { font-size: 24pt; line-height: 1.1; margin: 0 0 6pt; font-weight: 800; }
+.chapter-lede  { font-size: 11.5pt; color: var(--muted); margin-bottom: 14pt; max-width: 6in; }
+
+/* Invisible page-number marker read back by build.py. Must have real area. */
+a.tocmark { display: block; width: 2px; height: 2px; overflow: hidden; color: transparent; text-decoration: none; }
+
+/* ---------- cover ---------- */
+
+.cover {
+  height: 9.3in; display: flex; flex-direction: column; justify-content: space-between;
+  padding: 0.4in 0.1in 0.2in;
+}
+.cover .band { height: 10pt; background: linear-gradient(90deg, var(--accent), #3aa1a9 60%, var(--warm)); border-radius: 5pt; }
+.cover h1 { font-size: 44pt; line-height: 1.02; margin: 0.6in 0 10pt; font-weight: 800; letter-spacing: -.01em; }
+.cover h1 span { color: var(--accent); }
+.cover .sub { font-size: 16pt; color: var(--muted); font-family: "Inter", sans-serif; }
+.cover .es-sub { font-size: 13pt; color: var(--accent); font-style: italic; margin-top: 6pt; }
+.cover ul.feat { list-style: none; padding: 0; margin: 0.5in 0 0; columns: 2; column-gap: 0.4in; font-family: "Inter", sans-serif; font-size: 10pt; }
+.cover ul.feat li { break-inside: avoid; padding: 4pt 0 4pt 12pt; border-left: 2.5pt solid var(--accent-soft); margin-bottom: 6pt; }
+.cover .owner { border-top: 1pt solid var(--rule); padding-top: 10pt; font-family: "Inter", sans-serif; font-size: 9.5pt; color: var(--muted); }
+
+/* ---------- tables ---------- */
+
+table { width: 100%; border-collapse: collapse; margin: 4pt 0 10pt; font-size: 9.6pt; }
+th {
+  text-align: left; font-size: 8pt; text-transform: uppercase; letter-spacing: .06em;
+  color: var(--muted); border-bottom: 1.2pt solid var(--ink); padding: 3pt 5pt;
+}
+td { padding: 3.2pt 5pt; border-bottom: .5pt solid var(--rule); vertical-align: top; }
+tr { break-inside: avoid; }
+table.ph td:nth-child(2) { color: var(--accent); font-weight: 600; }
+table.ph td:nth-child(3) { font-family: "Inter", sans-serif; font-size: 8.3pt; color: var(--muted); }
+table.ph.two td:nth-child(2) { width: 52%; }
+table.compact { font-size: 8.6pt; }
+table.compact td { padding: 1.8pt 4pt; }
+td.num, th.num { width: 22pt; color: var(--muted); font-family: "Inter", sans-serif; }
+
+/* Table of contents */
+table.toc { font-size: 11pt; margin-top: 10pt; }
+table.toc td { border-bottom: none; padding: 4pt 4pt 1pt; }
+table.toc td.n { width: 28pt; font-family: "Inter", sans-serif; font-weight: 700; color: var(--accent); }
+table.toc td.t { font-weight: 600; }
+table.toc td.pg { width: 40pt; text-align: right; font-family: "Inter", sans-serif; }
+table.toc tr.sub td { padding-top: 0; padding-bottom: 4pt; font-size: 9pt; color: var(--muted); font-weight: 400; border-bottom: .5pt dotted var(--rule); }
+
+/* ---------- call-out boxes ---------- */
+
+.box { border-radius: 4pt; padding: 7pt 10pt; margin: 6pt 0 10pt; break-inside: avoid; font-size: 9.8pt; }
+.box > :last-child { margin-bottom: 0; }
+.box .lbl { font-family: "Inter", sans-serif; font-weight: 800; font-size: 7.5pt; letter-spacing: .14em; text-transform: uppercase; display: block; margin-bottom: 2pt; }
+.tip     { background: var(--accent-soft); }
+.tip .lbl { color: var(--accent); }
+.warn    { background: var(--warm-soft); border-left: 3pt solid var(--warm); }
+.warn .lbl { color: var(--warm); }
+.culture { background: var(--violet-soft); }
+.culture .lbl { color: #4d3f9a; }
+.grammar { background: var(--gold-soft); }
+.grammar .lbl { color: #8a6a00; }
+
+/* ---------- fillable lines ---------- */
+/* An <a class="fill" href="fillfield:NAME"> becomes an AcroForm text field. */
+
+a.fill {
+  display: inline-block; width: 100%; height: 15pt; vertical-align: bottom;
+  border-bottom: .8pt solid #8a8aa0; color: transparent; text-decoration: none;
+}
+a.fill.short { width: 1.4in; }
+a.fill.mid   { width: 2.6in; }
+a.fill.tall  { height: 46pt; border: .8pt solid #b8b8c8; border-radius: 2pt; }
+.field-row { display: flex; gap: 10pt; align-items: flex-end; margin: 3pt 0 5pt; break-inside: avoid; }
+.field-row label { white-space: nowrap; font-size: 9pt; font-family: "Inter", sans-serif; color: var(--muted); }
+.field-row label .es { font-weight: 500; }
+.field-row .grow { flex: 1; }
+
+/* ---------- discharge sheets ---------- */
+
+.sheet { break-before: page; border: 1.2pt solid var(--ink); border-radius: 4pt; padding: 12pt 14pt; }
+.sheet:first-of-type { break-before: auto; }
+.sheet h3 { margin-top: 0; font-size: 13pt; color: var(--ink); }
+.sheet h3 .es { display: block; font-size: 11pt; }
+.sheet h4 { margin-top: 10pt; }
+.sheet .return { background: var(--warm-soft); padding: 6pt 9pt; border-radius: 3pt; margin-top: 8pt; }
+.sheet .return p { margin: 0 0 3pt; }
+
+/* ---------- flashcards (fold along the dashed centre line) ---------- */
+
+.cards { display: grid; grid-template-columns: 1fr; gap: 0; margin-top: 6pt; }
+.card {
+  display: grid; grid-template-columns: 1fr 1fr; break-inside: avoid;
+  border: 1pt dashed #9a9ab0; border-top: none; min-height: 0.68in;
+}
+.cards .card:first-child { border-top: 1pt dashed #9a9ab0; }
+.card > div { padding: 6pt 9pt; display: flex; flex-direction: column; justify-content: center; }
+.card .en { border-right: 1pt dashed #9a9ab0; font-size: 10pt; }
+.card .en .ctx { font-family: "Inter", sans-serif; font-size: 7pt; letter-spacing: .1em; text-transform: uppercase; color: var(--warm); margin-bottom: 1pt; }
+.card .sp { font-size: 10.5pt; color: var(--accent); font-weight: 700; }
+.card .sp .say { font-weight: 400; margin-top: 1pt; }
+
+/* ---------- dialogues ---------- */
+
+.dialogue { margin: 4pt 0 12pt; break-inside: avoid-page; }
+.dialogue p { display: grid; grid-template-columns: 0.55in 1fr 1fr; gap: 8pt; margin: 0; padding: 2.5pt 0; border-bottom: .5pt dotted var(--rule); font-size: 9.6pt; }
+.dialogue b { font-family: "Inter", sans-serif; font-size: 8pt; color: var(--muted); padding-top: 1pt; }
+.dialogue .es { font-weight: 500; }
+.dialogue .en { color: var(--muted); }
+
+/* ---------- quizzes ---------- */
+
+ol.quiz { padding-left: 18pt; }
+ol.quiz > li { margin-bottom: 7pt; break-inside: avoid; }
+ol.quiz .opts { display: grid; grid-template-columns: 1fr 1fr; gap: 1pt 12pt; margin-top: 2pt; font-size: 9.6pt; }
+.score { display: flex; gap: 10pt; align-items: flex-end; justify-content: flex-end; font-family: "Inter", sans-serif; font-size: 9pt; color: var(--muted); margin-top: 6pt; }
+
+/* ---------- pocket card ---------- */
+
+.pocket { columns: 2; column-gap: 14pt; font-size: 7.9pt; line-height: 1.2; }
+.pocket h4 { margin: 5pt 0 2pt; font-size: 7.4pt; color: var(--accent); break-after: avoid; }
+.pocket p { margin: 0; padding: 1pt 0; border-bottom: .4pt solid #e2e2ea; break-inside: avoid; display: grid; grid-template-columns: 14pt 1fr; }
+.pocket p i { font-style: normal; color: var(--muted); font-family: "Inter", sans-serif; font-size: 6.8pt; padding-top: 1pt; }
+.pocket .es { display: block; }
+
+/* ---------- glossary ---------- */
+
+.gloss { columns: 2; column-gap: 16pt; font-size: 8.6pt; line-height: 1.22; }
+.gloss p { margin: 0; padding: 1.3pt 0; break-inside: avoid; border-bottom: .4pt solid #ececf2; }
+.gloss p b { font-weight: 600; }
+.gloss .letter { font-family: "Inter", sans-serif; font-weight: 800; font-size: 11pt; color: var(--accent); border-bottom: none; margin-top: 4pt; break-after: avoid; }
+
+/* ---------- misc ---------- */
+
+.two-col { columns: 2; column-gap: 18pt; }
+.two-col > * { break-inside: avoid; }
+.rule-line { border-bottom: .8pt solid #8a8aa0; height: 18pt; }
+.check { display: inline-block; width: 9pt; height: 9pt; border: .8pt solid var(--ink); border-radius: 1.5pt; vertical-align: -1pt; margin-right: 4pt; }
+.pagebreak { break-before: page; }
+.avoid { break-inside: avoid; }
