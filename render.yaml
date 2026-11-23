@@ -1,0 +1,31 @@
+# Render Blueprint. In the Render dashboard: New → Blueprint → pick this repo
+# and branch. It creates one web service with a persistent disk.
+#
+# Why a paid plan: Render's free instances spin down after 15 minutes idle and
+# lose their files when they do. The database is a file, so on the free plan
+# every load and expense would quietly vanish. Persistent disks need a paid
+# instance.
+services:
+  - type: web
+    name: haulmath
+    runtime: node
+    plan: 0.5c-512mb
+    # --include=dev: the build needs TypeScript, a devDependency. If the host
+    # sets NODE_ENV=production, plain `npm ci` skips it and the build fails.
+    buildCommand: npm ci --include=dev && npm run build
+    startCommand: npm start
+    healthCheckPath: /healthz
+    envVars:
+      - key: NODE_ENV
+        value: production
+      # Must sit inside the disk's mountPath, or the database is written to the
+      # instance's throwaway filesystem and lost on every deploy.
+      - key: DATABASE_PATH
+        value: /var/data/haulmath.db
+    disk:
+      name: haulmath-data
+      mountPath: /var/data
+      sizeGB: 1
+    # Billing is OFF by default: with no Stripe keys every account is free.
+    # To charge later, add STRIPE_SECRET_KEY, STRIPE_PRICE_ID,
+    # STRIPE_WEBHOOK_SECRET, PRICE_LABEL and COMP_EMAILS in the dashboard.

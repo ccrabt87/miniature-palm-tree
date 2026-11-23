@@ -1,0 +1,20 @@
+{
+  // The profit math is pure and dependency-free, so the exact same source that
+  // the server uses is compiled to ES modules for the browser. The rate check
+  // then runs entirely on the phone — no round trip, works with no signal, and
+  // there is only one implementation of the arithmetic to get right.
+  "compilerOptions": {
+    "target": "ES2020",
+    "module": "ES2020",
+    "moduleResolution": "Bundler",
+    "lib": ["ES2020", "DOM"],
+    "outDir": "public/lib",
+    "rootDir": "src",
+    "strict": true,
+    "noUncheckedIndexedAccess": true,
+    "removeComments": false,
+    "declaration": false,
+    "sourceMap": false
+  },
+  "files": ["src/calc.ts", "src/money.ts"]
+}
